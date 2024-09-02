@@ -80,11 +80,7 @@ function calculatedRemainingFuel(fuelBurnRate, time) {
 
   if (!fuelBurnRate.measurement === "kg/s") throw new Error("Please provide a fuel burn rate in kg/s")
   
-  return fuelBurnRate.value * time.value
-
-
-
-  
+  return fuelBurnRate.value * time.value 
 }
 
 // Pick up an error with how the function below is called and make it robust to such errors
