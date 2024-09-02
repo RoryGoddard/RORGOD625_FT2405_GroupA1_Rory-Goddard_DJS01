@@ -38,7 +38,7 @@ const fuelBurnRate = {
 
 
 const distanceCovered = calculateDistanceCovered(distance, velocity, time) //calcultes new distance
-const remainingFuel = calculatedRemainingFuel(fuelBurnRate, time) //calculates remaining fuel
+const remainingFuel = calculateRemainingFuel(fuelBurnRate, time) //calculates remaining fuel
 const acceleratedVelocity = calculateNewVelocity(acc, vel, time) //calculates new velocity based on acceleration
 
 // Returns distance covered in kilometers
@@ -65,7 +65,7 @@ function calculateDistanceCovered(distance, velocity, time) {
   return distance.value + (velocity.value * calculatedTimeForDistanceCoveredFunction)
 }
 
-function calculatedRemainingFuel(fuelBurnRate, time) {
+function calculateRemainingFuel(fuelBurnRate, time) {
   let calculatedTimeForFuelBurnRateFunction = 0
   if (!fuelBurnRate) throw new Error("fuelBurnRate object is required")
   if (!time) throw new Error("time object is required")
