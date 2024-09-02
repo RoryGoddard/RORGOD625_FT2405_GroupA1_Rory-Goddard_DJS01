@@ -39,10 +39,10 @@ const fbr = {
 
 const distanceCovered = d + (vel*time) //calcultes new distance
 const remainingFuel = fbr*time //calculates remaining fuel
-const acceleratedVelocity = calcNewVel(acc, vel, time) //calculates new velocity based on acceleration
+const acceleratedVelocity = calculateNewVelocity(acc, vel, time) //calculates new velocity based on acceleration
 
 // Pick up an error with how the function below is called and make it robust to such errors
-calcNewVel = (velocity, acceleration, time) => { 
+calculateNewVelocity = (velocity, acceleration, time) => { 
   return velocity + (acceleration*time)
 }
 
