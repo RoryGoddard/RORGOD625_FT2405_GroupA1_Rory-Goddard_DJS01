@@ -23,7 +23,8 @@ const time = {
 
 const d = {
   value: 0,
-  measurement: "kilometers"}; // distance (km)
+  measurement: "kilometers"
+}; // distance (km)
 
 const fuel = {
   value: 5000,
