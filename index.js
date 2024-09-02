@@ -71,9 +71,8 @@ function calculateNewVelocity(velocity, acceleration, time) {
   
   if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers per hour")
   if (!acceleration.measurement === "m/s^2") throw new Error("Please provide an acceleration object calculated in meters per second squared")
-  console.log(`Velocity: ${velocity.value}`)
-  console.log(`Acceleration: ${acceleration.value}`)
-  return (velocity.value + (acceleration.value * convertTime(time, "seconds")))
+
+  return (velocity.value + (acceleration.value * (convertTime(time, "seconds")) * 3.6))
 }
 
 function convertTime(time, measurement) {
