@@ -43,44 +43,22 @@ const acceleratedVelocity = calculateNewVelocity(acc, vel, time) //calculates ne
 
 // Returns distance covered in kilometers
 function calculateDistanceCovered(distance, velocity, time) {
-  let calculatedTimeForDistanceCoveredFunction = 0
-
   if (!distance) throw new Error("Distance object is required")
   if (!velocity) throw new Error("Velocity object is required")
   if (!time) throw new Error("Time object is required")
 
   if (!distance.measurement === "kilometers") throw new Error("Please provide a distance object calculated in kilometers")
-
   if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers per hour")
 
-  if (time.measurement === "seconds") {
-    calculatedTimeForDistanceCoveredFunction = time.value / 3600
-  } else if (time.measurement === "minutes") {
-    calculatedTimeForDistanceCoveredFunction = time.value / 60
-  } else if (time.measurement === "hours") {
-    calculatedTimeForDistanceCoveredFunction = time.value
-  } else throw new Error("Please provide a time object measured in seconds, minutes, or hours")
-
-
-  return distance.value + (velocity.value * calculatedTimeForDistanceCoveredFunction)
+  return distance.value + (velocity.value * convertTime(time, "hours"))
 }
 
 function calculateRemainingFuel(fuelBurnRate, time) {
-  let calculatedTimeForFuelBurnRateFunction = 0
   if (!fuelBurnRate) throw new Error("fuelBurnRate object is required")
   if (!time) throw new Error("time object is required")
-
-  if (time.measurement === "seconds") {
-    calculatedTimeForFuelBurnRateFunction = time.value
-  } else if (time.measurement === "minutes") {
-    calculatedTimeForFuelBurnRateFunction = time.value * 60
-  } else if (time.measurement === "hours") {
-    calculatedTimeForFuelBurnRateFunction = time.value * 3600
-  } else throw new Error("Please provide a time object measured in seconds, minutes, or hours")
-
   if (!fuelBurnRate.measurement === "kg/s") throw new Error("Please provide a fuel burn rate in kg/s")
   
-  return fuelBurnRate.value * calculatedTimeForFuelBurnRateFunction
+  return fuelBurnRate.value * convertTime(time, "seconds")
 }
 
 // Pick up an error with how the function below is called and make it robust to such errors
@@ -91,16 +69,8 @@ function calculateNewVelocity(velocity, acceleration, time) {
   
   if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers per hour")
   if (!acceleration.measurement === "m/s^2") throw new Error("Please provide an acceleration object calculated in meters per second squared")
-
-  if (time.measurement === "seconds") {
-    calculatedTimeForDistanceCoveredFunction = time.value / 3600
-  } else if (time.measurement === "minutes") {
-    calculatedTimeForDistanceCoveredFunction = time.value / 60
-  } else if (time.measurement === "hours") {
-    calculatedTimeForDistanceCoveredFunction = time.value
-  } else throw new Error("Please provide a time object measured in seconds, minutes, or hours")
-
-  return velocity + (acceleration*time)
+  
+  return velocity + (acceleration * convertTime(time, "seconds"))
 }
 
 function convertTime(time, measurement) {
