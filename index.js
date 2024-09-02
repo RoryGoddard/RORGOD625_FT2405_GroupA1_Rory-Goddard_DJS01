@@ -49,11 +49,13 @@ function calculateDistanceCovered(distance, velocity, time) {
 
   if (!distance.measurement === "kilometers") throw new Error("Please provide a distance object calculated in kilometers")
   if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers per hour")
-
+  console.log(distance.value)
+  console.log(velocity.value)
+  console.log(convertTime(time, "seconds"))
   return distance.value + (velocity.value * convertTime(time, "hours"))
 }
 
-function calculateRemainingFuel(fuelBurnRate, time) {
+function calculateRemainingFuel(fuelBurnRate, time) { 
   if (!fuelBurnRate) throw new Error("fuelBurnRate object is required")
   if (!time) throw new Error("time object is required")
   if (!fuelBurnRate.measurement === "kg/s") throw new Error("Please provide a fuel burn rate in kg/s")
@@ -88,9 +90,9 @@ function convertTime(time, measurement) {
   } else if (measurement === "minutes" && time.measurement === "hours") {
       return time.value / 60
   } else if (measurement === "hours" && time.measurement === "minutes") {
-      return time.value * 60
+      return time.value / 60
   } else if (measurement === "hours" && time.measurement === "seconds") {
-      return time.value * 3600
+      return time.value / 3600
   } else if (measurement === time.measurement) {
     return time.value
   } else throw new Error("Please provide a time object measured in seconds, minutes, or hours")
