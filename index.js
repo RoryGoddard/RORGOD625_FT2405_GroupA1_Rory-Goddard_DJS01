@@ -46,11 +46,18 @@ function calculateDistanceCovered(distance, velocity, time) {
   if (!distance) throw new Error("Distance object is required")
   if (!velocity) throw new Error("Velocity object is required")
   if (!time) throw new Error("Time object is required")
+  
+  let distanceConverted = 0
 
-  if (!distance.measurement === "kilometers") throw new Error("Please provide a distance object calculated in kilometers")
+  if (!distance.measurement === "kilometers" || !distance.measurement === "meters") throw new Error("Please provide a distance object calculated in kilometers or meters")
   if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers per hour")
   
-  return distance.value + (velocity.value * convertTime(time, "hours"))
+  if (distance.measurement === "meters") {
+    distanceConverted = distance.value * 1000
+  } else if (distance.measurement === "kilometers") {
+    distanceConverted = distance.value
+  }
+  return distanceConverted + (velocity.value * convertTime(time, "hours"))
 }
 
 function calculateRemainingFuel(fuelBurnRate, time) { 
