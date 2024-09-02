@@ -49,9 +49,7 @@ function calculateDistanceCovered(distance, velocity, time) {
 
   if (!distance.measurement === "kilometers") throw new Error("Please provide a distance object calculated in kilometers")
   if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers per hour")
-  console.log(distance.value)
-  console.log(velocity.value)
-  console.log(convertTime(time, "seconds"))
+
   return distance.value + (velocity.value * convertTime(time, "hours"))
 }
 
