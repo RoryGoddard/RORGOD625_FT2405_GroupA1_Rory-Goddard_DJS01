@@ -51,14 +51,14 @@ function calculateDistanceCovered(distance, velocity, time) {
 
   if (!distance.measurement === "kilometers") throw new Error("Please provide a distance object calculated in kilometers")
 
-  if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers")
+  if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers per hour")
 
   if (time.measurement === "seconds") {
     calculatedTimeForDistanceCoveredFunction = time.value / 3600
   } else if (time.measurement === "minutes") {
-      calculatedTimeForDistanceCoveredFunction = time.value / 60
+    calculatedTimeForDistanceCoveredFunction = time.value / 60
   } else if (time.measurement === "hours") {
-      calculatedTimeForDistanceCoveredFunction = time.value
+    calculatedTimeForDistanceCoveredFunction = time.value
   } else throw new Error("Please provide a time object measured in seconds, minutes, or hours")
 
 
@@ -84,9 +84,47 @@ function calculateRemainingFuel(fuelBurnRate, time) {
 }
 
 // Pick up an error with how the function below is called and make it robust to such errors
-function calculateNewVelocity(velocity, acceleration, time) { 
+function calculateNewVelocity(velocity, acceleration, time) {
+  if (!velocity) throw new Error("Velocity object is required")
+  if (!acceleration) throw new Error("Distance object is required")
+  if (!time) throw new Error("Time object is required")
+  
+  if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers per hour")
+  if (!acceleration.measurement === "m/s^2") throw new Error("Please provide an acceleration object calculated in meters per second squared")
+
+  if (time.measurement === "seconds") {
+    calculatedTimeForDistanceCoveredFunction = time.value / 3600
+  } else if (time.measurement === "minutes") {
+    calculatedTimeForDistanceCoveredFunction = time.value / 60
+  } else if (time.measurement === "hours") {
+    calculatedTimeForDistanceCoveredFunction = time.value
+  } else throw new Error("Please provide a time object measured in seconds, minutes, or hours")
+
   return velocity + (acceleration*time)
 }
+
+function convertTime(time, measurement) {
+  if (!time) throw new Error("Time object is required")
+  if (!measurement) throw new Error("Please input a unit of measurement to convert to")
+  if (!measurement === "seconds" || !measurement === "minutes" || !measurement === "hours") throw new Error("The measurement must be a string in seconds, minutes, or hours")
+  if (!time.measurement === "seconds" || !time.measurement === "minutes" || !time.measurement === "hours") throw new Error("The measurement must be a string reading 'seconds', 'minutes', or 'hours'")
+  
+  if (measurement === "seconds" && time.measurement === "hours") {
+    return time.value * 3600
+  } else if (measurement === "seconds" && time.measurement === "minutes") {
+      return time.value * 60
+  } else if (measurement === "minutes" && time.measurement === "seconds") {
+      return time.value / 60
+  } else if (measurement === "minutes" && time.measurement === "hours") {
+      return time.value / 60
+  } else if (measurement === "hours" && time.measurement === "minutes") {
+      return time.value * 60
+  } else if (measurement === "hours" && time.measurement === "seconds") {
+      return time.value * 3600
+  } else if (measurement === time.measurement) {
+    return time.value
+  } else throw new Error("Please provide a time object measured in seconds, minutes, or hours")
+  }
 
 console.log(`Corrected New Velocity: ${acceleratedVelocity} km/h`);
 console.log(`Corrected New Distance: ${distanceCovered} km`);
