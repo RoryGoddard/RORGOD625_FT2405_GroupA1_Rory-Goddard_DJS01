@@ -57,6 +57,7 @@ function calculateDistanceCovered(distance, velocity, time) {
   } else if (distance.measurement === "kilometers") {
     distanceConverted = distance.value
   }
+  
   return distanceConverted + (velocity.value * convertTime(time, "hours"))
 }
 
