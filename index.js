@@ -71,16 +71,16 @@ function calculateRemainingFuel(fuelBurnRate, time) {
   if (!time) throw new Error("time object is required")
 
   if (time.measurement === "seconds") {
-    calculatedTimeForFuelBurnRateFunction = time.value / 3600
-  } else if (time.measurement === "minutes") {
-    calculatedTimeForFuelBurnRateFunction = time.value / 60
-  } else if (time.measurement === "hours") {
     calculatedTimeForFuelBurnRateFunction = time.value
+  } else if (time.measurement === "minutes") {
+    calculatedTimeForFuelBurnRateFunction = time.value * 60
+  } else if (time.measurement === "hours") {
+    calculatedTimeForFuelBurnRateFunction = time.value * 3600
   } else throw new Error("Please provide a time object measured in seconds, minutes, or hours")
 
   if (!fuelBurnRate.measurement === "kg/s") throw new Error("Please provide a fuel burn rate in kg/s")
   
-  return fuelBurnRate.value * time.value 
+  return fuelBurnRate.value * calculatedTimeForFuelBurnRateFunction
 }
 
 // Pick up an error with how the function below is called and make it robust to such errors
