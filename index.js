@@ -6,12 +6,12 @@
  */
 
 // Given Parameters
-const vel = { 
+const velocity = { 
   value: 10000,
   measurement: "km/h"
 }; // velocity (km/h)
 
-const acc = {
+const acceleration = {
   value: 3,
   measurement: "m/s^2"
 }; // acceleration (m/s^2)
@@ -21,7 +21,7 @@ const time = {
   measurement: "seconds"
 }; // seconds (1 hour)
 
-const d = {
+const distance = {
   value: 0,
   measurement: "kilometers"
 }; // distance (km)
@@ -37,18 +37,18 @@ const fbr = {
 }; // fuel burn rate (kg/s)
 
 
-const d2 = d + (vel*time) //calcultes new distance
-const rf = fbr*time //calculates remaining fuel
-const vel2 = calcNewVel(acc, vel, time) //calculates new velocity based on acceleration
+const distanceCovered = d + (vel*time) //calcultes new distance
+const remainingFuel = fbr*time //calculates remaining fuel
+const acceleratedVelocity = calcNewVel(acc, vel, time) //calculates new velocity based on acceleration
 
 // Pick up an error with how the function below is called and make it robust to such errors
-calcNewVel = (vel, acc, time) => { 
-  return vel + (acc*time)
+calcNewVel = (velocity, acceleration, time) => { 
+  return velocity + (acceleration*time)
 }
 
-console.log(`Corrected New Velocity: ${vel2} km/h`);
-console.log(`Corrected New Distance: ${d2} km`);
-console.log(`Corrected Remaining Fuel: ${rf} kg`);
+console.log(`Corrected New Velocity: ${acceleratedVelocity} km/h`);
+console.log(`Corrected New Distance: ${distanceCovered} km`);
+console.log(`Corrected Remaining Fuel: ${remainingFuel} kg`);
 
 
 
