@@ -39,7 +39,7 @@ const fuelBurnRate = {
 
 const distanceCovered = calculateDistanceCovered(distance, velocity, time) //calcultes new distance
 const remainingFuel = calculateRemainingFuel(fuelBurnRate, time) //calculates remaining fuel
-const acceleratedVelocity = calculateNewVelocity(acceleration, velocity, time) //calculates new velocity based on acceleration
+const acceleratedVelocity = calculateNewVelocity(velocity, acceleration, time) //calculates new velocity based on acceleration
 
 // Returns distance covered in kilometers
 function calculateDistanceCovered(distance, velocity, time) {
@@ -71,8 +71,9 @@ function calculateNewVelocity(velocity, acceleration, time) {
   
   if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers per hour")
   if (!acceleration.measurement === "m/s^2") throw new Error("Please provide an acceleration object calculated in meters per second squared")
-  
-  return velocity.value + (acceleration.value * convertTime(time, "seconds"))
+  console.log(`Velocity: ${velocity.value}`)
+  console.log(`Acceleration: ${acceleration.value}`)
+  return (velocity.value + (acceleration.value * convertTime(time, "seconds")))
 }
 
 function convertTime(time, measurement) {
