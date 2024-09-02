@@ -1,9 +1,3 @@
-/**
- * Debugging Guide
- * 1. Make the code more readable
- * 2. Pick up calculation errors
- * 3. Make these calculations robust such that the calculation does not give an incorrect result, it throws an error to the user if something has gone wrong (parameter used with an incorrect unit of measurement, etc)
- */
 
 // Given Parameters
 const velocity = { 
@@ -57,10 +51,11 @@ function calculateDistanceCovered(distance, velocity, time) {
   } else if (distance.measurement === "kilometers") {
     distanceConverted = distance.value
   }
-  
+
   return distanceConverted + (velocity.value * convertTime(time, "hours"))
 }
 
+// Returns amount of remaining fuel
 function calculateRemainingFuel(fuelBurnRate, time) { 
   if (!fuelBurnRate) throw new Error("fuelBurnRate object is required")
   if (!time) throw new Error("time object is required")
@@ -69,7 +64,7 @@ function calculateRemainingFuel(fuelBurnRate, time) {
   return fuel.value - (fuelBurnRate.value * convertTime(time, "seconds"))
 }
 
-// Pick up an error with how the function below is called and make it robust to such errors
+// Calculates velocity given the initial velocity, acceleration and time
 function calculateNewVelocity(velocity, acceleration, time) {
   if (!velocity) throw new Error("Velocity object is required")
   if (!acceleration) throw new Error("Distance object is required")
@@ -81,6 +76,7 @@ function calculateNewVelocity(velocity, acceleration, time) {
   return (velocity.value + (acceleration.value * (convertTime(time, "seconds")) * 3.6))
 }
 
+// Converts time between seconds, minutes and hours, as needed
 function convertTime(time, measurement) {
   if (!time) throw new Error("Time object is required")
   if (!measurement) throw new Error("Please input a unit of measurement to convert to")
