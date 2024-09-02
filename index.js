@@ -31,7 +31,7 @@ const fuel = {
   measurement: "kilograms"
 }; // remaining fuel (kg)
 
-const fbr = {
+const fuelBurnRate = {
   value: 0.5,
   measurement: "kg/s"
 }; // fuel burn rate (kg/s)
@@ -41,8 +41,32 @@ const distanceCovered = d + (vel*time) //calcultes new distance
 const remainingFuel = fbr*time //calculates remaining fuel
 const acceleratedVelocity = calculateNewVelocity(acc, vel, time) //calculates new velocity based on acceleration
 
+// Returns distance covered in kilometers
+function calculateDistanceCovered(distance, velocity, time) {
+  let calculatedTime = 0
+
+  if (!distance) throw new Error("Distance object is required")
+  if (!velocity) throw new Error("Velocity object is required")
+  if (!time) throw new Error("Time object is required")
+
+  if (!distance.measurement === "kilometers") throw new Error("Please provide a distance object calculated in kilometers")
+
+  if (!velocity.measurement === "km/h") throw new Error("Please provide a velocity object calculated in kilometers")
+
+  if (time.measurement === "seconds") {
+    calculatedTime = time.value / 3600
+  } else if (time.measurement === "minutes") {
+      calculatedTime = time.value / 60
+  } else if (time.measurement === "hours") {
+      calculatedTime = time.value
+  } else throw new Error("Please provide a time object measured in seconds, minutes, or hours")
+
+
+  return distance.value + (velocity.value * calculatedTime)
+}
+
 // Pick up an error with how the function below is called and make it robust to such errors
-calculateNewVelocity = (velocity, acceleration, time) => { 
+function calculateNewVelocity(velocity, acceleration, time) { 
   return velocity + (acceleration*time)
 }
 
